@@ -1,0 +1,36 @@
+package github.titandea.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.UUID;
+
+@Entity
+@Data
+@Table(name = "agent")
+public class AgentEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @Column(name = "local_ip", length = 255)
+    private String localIp;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "organization_id", nullable = false)
+    private OrganizationEntity organization;
+
+    @Column(name = "continuous", nullable = false)
+    private Boolean continuous;
+
+    @Column(name = "start_time")
+    private LocalTime startTime;
+
+    @Column(name = "end_time")
+    private LocalTime endTime;
+
+    @Column(name = "last_metric_received")
+    private LocalDateTime lastMetricReceived;
+}

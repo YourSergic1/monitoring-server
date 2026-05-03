@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - include:
+      file: changelog/DDL/2026-05-01-01-init-organization-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changelog/DDL/2026-05-01-02-init-agent-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changelog/DDL/2026-05-02-01-init-system-metrics-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changelog/DDL/2026-05-03-01-init-cpu-metrics-tables.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changelog/DDL/2026-05-03-02-init-memory-metrics-tables.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changelog/DDL/2026-05-03-03-init-disk-metrics-tables.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changelog/DDL/2026-05-03-04-init-network-metrics-tables.sql
+      relativeToChangelogFile: true

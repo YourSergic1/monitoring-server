@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      group-id: metrics-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "github.titandea.dto.*"
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password:  ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog-master.yaml
+    default-schema: server
+
+kafka:
+  metrics-topic: ${KAFKA_METRICS_TOPIC}
+  init-topic: ${KAFKA_INIT_TOPIC}
