@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -40,4 +42,7 @@ public class AgentEntity {
 
     @Column(name = "last_metric_received")
     private LocalDateTime lastMetricReceived;
+
+    @OneToMany(mappedBy = "agent", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<SystemMetricsEntity> systemMetrics = new HashSet<>();
 }

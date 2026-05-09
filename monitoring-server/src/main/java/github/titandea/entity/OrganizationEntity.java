@@ -34,6 +34,6 @@ public class OrganizationEntity {
     @Column(name = "contact_person", length = 255)
     private String contactPerson;
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<AgentEntity> agents = new HashSet<>();
 }

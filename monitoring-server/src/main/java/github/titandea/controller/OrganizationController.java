@@ -2,6 +2,7 @@ package github.titandea.controller;
 
 import github.titandea.dto.create.Organization;
 import github.titandea.dto.response.OrganizationResponse;
+import github.titandea.dto.response.OrganizationSummaryResponse;
 import github.titandea.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +21,27 @@ public class OrganizationController {
     private final OrganizationService organizationService;
 
     /**
-     * Получение списка организаций.
+     * Получение списка организаций кратко.
      */
     @GetMapping
-    public List<OrganizationResponse> getAllOrganizations() {
-        return organizationService.getAllOrganizations();
+    public List<OrganizationSummaryResponse> getAllOrganizations() {
+        return organizationService.getAllOrganizationsSummary();
+    }
+
+    /**
+     * Получение организации по UUID.
+     */
+    @GetMapping("/{id}")
+    public OrganizationResponse getOrganizationById(@PathVariable UUID id) {
+        return organizationService.getOrganizationByUUID(id);
+    }
+
+    /**
+     * Удаление организации по UUID.
+     */
+    @DeleteMapping("/{id}")
+    public void deleteOrganizationById(@PathVariable UUID id) {
+        organizationService.deleteOrganizationByUUID(id);
     }
 
     /**
