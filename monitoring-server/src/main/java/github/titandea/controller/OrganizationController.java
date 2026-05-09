@@ -33,7 +33,7 @@ public class OrganizationController {
      */
     @GetMapping("/{id}")
     public OrganizationResponse getOrganizationById(@PathVariable UUID id) {
-        return organizationService.getOrganizationByUUID(id);
+        return organizationService.getOrganizationById(id);
     }
 
     /**
@@ -41,7 +41,15 @@ public class OrganizationController {
      */
     @DeleteMapping("/{id}")
     public void deleteOrganizationById(@PathVariable UUID id) {
-        organizationService.deleteOrganizationByUUID(id);
+        organizationService.deleteOrganizationById(id);
+    }
+
+    /**
+     * Редактирование организации по UUID.
+     */
+    @PatchMapping("/{id}")
+    public void changeOrganizationById(@PathVariable UUID id, @RequestBody Organization organization) {
+        organizationService.changeOrganizationById(id, organization);
     }
 
     /**

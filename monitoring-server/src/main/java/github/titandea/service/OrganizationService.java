@@ -8,11 +8,10 @@ import github.titandea.mapper.CreateDtoToEntityMapper;
 import github.titandea.mapper.EntityToResponseDtoMapper;
 import github.titandea.repository.OrganizationRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.UUID;
@@ -44,7 +43,7 @@ public class OrganizationService {
     /**
      * Создание новой организации.
      */
-    public ResponseEntity<UUID> createOrganization(@RequestBody Organization organization) {
+    public ResponseEntity<UUID> createOrganization(Organization organization) {
         OrganizationEntity organizationEntity = createDtoToEntityMapper.toOrganizationEntity(organization);
         organizationRepository.save(organizationEntity);
         return ResponseEntity.ok(organizationEntity.getId());
@@ -53,7 +52,7 @@ public class OrganizationService {
     /**
      * Поиск организации по UUID.
      */
-    public OrganizationResponse getOrganizationByUUID(@RequestParam UUID uuid) {
+    public OrganizationResponse getOrganizationById(UUID uuid) {
         return entityToResponseDtoMapper.toOrganizationResponse(
                 organizationRepository.findById(uuid).orElse(null));
     }
@@ -62,7 +61,28 @@ public class OrganizationService {
      * Удаление организации по UUID.
      */
     @Transactional
-    public void deleteOrganizationByUUID(@RequestParam UUID uuid) {
+    public void deleteOrganizationById(UUID uuid) {
         organizationRepository.deleteById(uuid);
+    }
+
+    /**
+     * Изменение организации по UUID.
+     */
+    @Transactional
+    public void changeOrganizationById(UUID uuid, Organization organization) {
+        OrganizationEntity organizationEntity = organizationRepository.findById(uuid).orElse(null);
+        if (StringUtils.isNoneEmpty(organization.getAddress())) {
+            organizationEntity.setAddress(organization.getAddress());
+        }
+        if (StringUtils.isNoneEmpty(organization.getName())) {
+            organizationEntity.setName(organization.getName());
+        }
+        if (StringUtils.isNoneEmpty(organization.getPhoneNumber())) {
+            organizationEntity.setPhoneNumber(organization.getPhoneNumber());
+        }
+        if (StringUtils.isNoneEmpty(organization.getContactPerson())) {
+            organizationEntity.setContactPerson(organization.getPhoneNumber());
+        }
+        organizationRepository.save(organizationEntity);
     }
 }
