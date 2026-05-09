@@ -1,12 +1,15 @@
 package github.titandea.kafka;
 
-import github.titandea.dto.SystemMetrics;
+import github.titandea.dto.create.SystemMetrics;
 import github.titandea.service.MetricsIngestionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+/**
+ * Инициализация кафка слушателя для системных метрик агента.
+ */
 @Component
 @RequiredArgsConstructor
 @Slf4j

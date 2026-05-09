@@ -1,14 +1,21 @@
 package github.titandea.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
 
+/**
+ * Сущность агента для БД.
+ */
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "agent")
 public class AgentEntity {
     @Id
@@ -18,7 +25,7 @@ public class AgentEntity {
     @Column(name = "local_ip", length = 255)
     private String localIp;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id", nullable = false)
     private OrganizationEntity organization;
 

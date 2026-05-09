@@ -1,11 +1,14 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT}
 
 spring:
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     consumer:
-      group-id: metrics-consumer-group
+      metrics:
+        group-id: ${KAFKA_CONSUMER_METRICS_GROUP_ID}
+      agent:
+        group-id:  ${KAFKA_CONSUMER_AGENT_GROUP_ID}
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer

@@ -1,23 +1,24 @@
-package github.titandea.dto;
+package github.titandea.dto.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
+/**
+ * DTO для получения данных об организации.
+ * Используется в контроллере.
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Organization {
-
     private String name;
 
     private String address;
 
     private String phoneNumber;
 
-    private Set<Agent> agents;
+    private String contactPerson;
 }

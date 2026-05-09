@@ -1,13 +1,18 @@
 package github.titandea.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 
+/**
+ * Сущность метрик дискового пространства для БД.
+ */
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "disk_metrics",
         indexes = @Index(name = "idx_disk_system", columnList = "system_id"))
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -17,7 +22,7 @@ public class DiskMetricsEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "system_id", nullable = false)
     private SystemMetricsEntity system;
 

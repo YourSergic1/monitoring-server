@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Репозиторий метрик системных метрик.
+ */
 public interface SystemMetricsRepository extends JpaRepository<SystemMetricsEntity, UUID> {
 
     @Query("SELECT DISTINCT s FROM SystemMetricsEntity s " +

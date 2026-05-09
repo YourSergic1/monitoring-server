@@ -1,9 +1,9 @@
 package github.titandea.service;
 
-import github.titandea.dto.SystemMetrics;
+import github.titandea.dto.create.SystemMetrics;
 import github.titandea.entity.AgentEntity;
 import github.titandea.entity.SystemMetricsEntity;
-import github.titandea.mapper.MetricsMapper;
+import github.titandea.mapper.CreateDtoToEntityMapper;
 import github.titandea.repository.AgentRepository;
 import github.titandea.repository.SystemMetricsRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+/**
+ * Сервис считывания системных метрик из кафки.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -23,7 +26,7 @@ public class MetricsIngestionService {
 
     private final AgentRepository agentRepository;
 
-    private final MetricsMapper mapper;
+    private final CreateDtoToEntityMapper createDtoToEntityMapper;
 
     @Transactional
     public void processAndSave(SystemMetrics dto) {
@@ -32,29 +35,13 @@ public class MetricsIngestionService {
             return;
         }
         Optional<AgentEntity> agentEntity = agentRepository.findByLocalIp(dto.getLocalIp());
-        if (!agentEntity.isPresent()) {
+        if (agentEntity.isEmpty()) {
             log.debug("Агент {} не проинициализирован.", dto.getLocalIp());
             return;
         }
-        SystemMetricsEntity entity = mapper.toEntity(dto, agentEntity.get());
-        linkBidirectionalRelations(entity);
+        SystemMetricsEntity entity = createDtoToEntityMapper.toSystemMetricsEntity(dto, agentEntity.get());
         agentEntity.get().setLastMetricReceived(LocalDateTime.now());
         agentRepository.save(agentEntity.get());
         systemMetricsRepository.save(entity);
-    }
-
-    private void linkBidirectionalRelations(SystemMetricsEntity entity) {
-        if (entity.getCpuMetricsEntities() != null) {
-            entity.getCpuMetricsEntities().forEach(cpu -> cpu.setSystem(entity));
-        }
-        if (entity.getMemoryMetricsEntities() != null) {
-            entity.getMemoryMetricsEntities().forEach(mem -> mem.setSystem(entity));
-        }
-        if (entity.getDiskMetricsEntities() != null) {
-            entity.getDiskMetricsEntities().forEach(disk -> disk.setSystem(entity));
-        }
-        if (entity.getNetworkMetricsEntities() != null) {
-            entity.getNetworkMetricsEntities().forEach(net -> net.setSystem(entity));
-        }
     }
 }

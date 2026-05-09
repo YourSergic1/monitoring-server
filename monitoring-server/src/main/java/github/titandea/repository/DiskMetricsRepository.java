@@ -5,5 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
+/**
+ * Репозиторий метрик дискового пространства.
+ */
 public interface DiskMetricsRepository extends JpaRepository<DiskMetricsEntity, UUID> {
 }

@@ -1,22 +1,24 @@
-package github.titandea.dto;
+package github.titandea.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.UUID;
 
-@Data
+/**
+ * DTO для отправки данных об агенте на фронт.
+ * Используется в контроллере.
+ */
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Agent {
+public class AgentResponse {
+    private UUID id;
 
     private String localIp;
-
-    private Organization organization;
 
     private Boolean continuous;
 

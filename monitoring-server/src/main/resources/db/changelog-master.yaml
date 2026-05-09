@@ -20,3 +20,6 @@ databaseChangeLog:
   - include:
       file: changelog/DDL/2026-05-03-04-init-network-metrics-tables.sql
       relativeToChangelogFile: true
+  - include:
+      file: changelog/DDL/2026-05-09-01-add-column-into-organization.sql
+      relativeToChangelogFile: true

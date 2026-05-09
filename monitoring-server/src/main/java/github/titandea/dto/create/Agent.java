@@ -1,4 +1,4 @@
-package github.titandea.dto;
+package github.titandea.dto.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,11 +7,15 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
 
+/**
+ * DTO для получения данных агента.
+ * Используется в Kafka-сообщениях.
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InitInfo {
+public class Agent {
 
     private String organization;
 

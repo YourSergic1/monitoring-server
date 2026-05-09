@@ -1,16 +1,21 @@
 package github.titandea.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Сущность системных метрик для БД.
+ */
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "system_metrics",
         uniqueConstraints = @UniqueConstraint(name = "uq_system_ip_time", columnNames = {"local_ip", "date_time"}))
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -20,7 +25,7 @@ public class SystemMetricsEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agent_id", nullable = false)
     private AgentEntity agent;
 

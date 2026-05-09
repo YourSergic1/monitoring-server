@@ -1,13 +1,18 @@
 package github.titandea.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 
+/**
+ * Сущность метрик соединений для БД.
+ */
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "network_metrics",
         indexes = @Index(name = "idx_network_system", columnList = "system_id"))
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)

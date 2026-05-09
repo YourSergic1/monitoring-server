@@ -1,6 +1,6 @@
 package github.titandea.service;
 
-import github.titandea.dto.InitInfo;
+import github.titandea.dto.create.Agent;
 import github.titandea.entity.AgentEntity;
 import github.titandea.entity.OrganizationEntity;
 import github.titandea.repository.AgentRepository;
@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Сервис для инициализации агента.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -21,21 +24,21 @@ public class AgentInitializationService {
 
     private final OrganizationRepository organizationRepository;
 
-    public void initAgent(InitInfo initInfo) {
-        Optional<AgentEntity> agentEntityCheck = agentRepository.findByLocalIp(initInfo.getLocalIp());
+    public void initAgent(Agent agent) {
+        Optional<AgentEntity> agentEntityCheck = agentRepository.findByLocalIp(agent.getLocalIp());
         if (agentEntityCheck.isPresent()) {
             log.info("Агент уже проинициализирован.");
             return;
         }
-        Optional<OrganizationEntity> organizationEntity = organizationRepository.findById(UUID.fromString(initInfo.getOrganization()));
+        Optional<OrganizationEntity> organizationEntity = organizationRepository.findById(UUID.fromString(agent.getOrganization()));
         if (organizationEntity.isPresent()) {
             AgentEntity agentEntity = new AgentEntity();
             agentEntity.setOrganization(organizationEntity.get());
-            if (initInfo.getLocalIp() != null) agentEntity.setLocalIp(initInfo.getLocalIp());
-            if (initInfo.getContinuous() != null) agentEntity.setContinuous(initInfo.getContinuous());
-            if (initInfo.getContinuous() != null && !initInfo.getContinuous()) {
-                if (initInfo.getStartTime() != null) agentEntity.setStartTime(initInfo.getStartTime());
-                if (initInfo.getEndTime() != null) agentEntity.setEndTime(initInfo.getEndTime());
+            if (agent.getLocalIp() != null) agentEntity.setLocalIp(agent.getLocalIp());
+            if (agent.getContinuous() != null) agentEntity.setContinuous(agent.getContinuous());
+            if (agent.getContinuous() != null && !agent.getContinuous()) {
+                if (agent.getStartTime() != null) agentEntity.setStartTime(agent.getStartTime());
+                if (agent.getEndTime() != null) agentEntity.setEndTime(agent.getEndTime());
             }
             agentRepository.save(agentEntity);
         } else {
