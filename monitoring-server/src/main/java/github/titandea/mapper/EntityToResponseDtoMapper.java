@@ -32,4 +32,6 @@ public interface EntityToResponseDtoMapper {
     SystemMetricsResponse toSystemMetricsResponse(SystemMetricsEntity entity);
 
     CalendarResponse toCalendarResponse(CalendarEntity entity);
+
+    UserSummaryResponse toUserSummaryResponse(UserEntity entity);
 }

@@ -1,7 +1,10 @@
 package github.titandea.service;
 
 import github.titandea.dto.create.User;
+import github.titandea.dto.response.OrganizationSummaryResponse;
+import github.titandea.dto.response.UserSummaryResponse;
 import github.titandea.entity.UserEntity;
+import github.titandea.mapper.EntityToResponseDtoMapper;
 import github.titandea.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +23,10 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
+
     private final EmailService emailService;
+
+    private final EntityToResponseDtoMapper entityToResponseDtoMapper;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -64,5 +72,15 @@ public class UserService {
             password.append(alphabet.charAt(random.nextInt(alphabet.length())));
         }
         return password.toString();
+    }
+
+    /**
+     * Получение списка организаций.
+     */
+    public List<UserSummaryResponse> getAllUsersSummary() {
+        return userRepository.findAll().stream()
+                .map(userEntity ->
+                        entityToResponseDtoMapper.toUserSummaryResponse(userEntity))
+                .collect(Collectors.toList());
     }
 }
