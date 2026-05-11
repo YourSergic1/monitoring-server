@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,20 +20,18 @@ public class AgentController {
 
     private final MetricsService metricsService;
 
-    @GetMapping("/{id}/metrics")
+    @GetMapping("/{id}/metrics/range")
     public List<SystemMetricsResponse> getAgentMetrics(
             @PathVariable UUID id,
             @RequestParam(defaultValue = "30m") String range) {
-
-        Duration duration = parseRange(range);
         return metricsService.getMetricsForAgent(id, range);
     }
 
-    private Duration parseRange(String range) {
-        return switch (range) {
-            case "2h" -> Duration.ofHours(2);
-            case "4h" -> Duration.ofHours(4);
-            default -> Duration.ofMinutes(30);
-        };
+    @GetMapping("/{id}/metrics/dates")
+    public List<SystemMetricsResponse> getAgentMetrics(
+            @PathVariable UUID id,
+            @RequestParam LocalDateTime startTime,
+            @RequestParam LocalDateTime endTime) {
+        return metricsService.getMetricsForAgent(id, startTime,endTime);
     }
 }
