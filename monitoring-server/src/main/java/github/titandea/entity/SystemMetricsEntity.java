@@ -44,15 +44,23 @@ public class SystemMetricsEntity {
     @Column(name = "uptime_minutes")
     private Long uptimeMinutes;
 
-    @OneToMany(mappedBy = "system", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "system",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
+            orphanRemoval = true)
     private Set<CpuMetricsEntity> cpuMetricsEntities = new HashSet<>();
 
-    @OneToMany(mappedBy = "system", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "system",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
+            orphanRemoval = true)
     private Set<MemoryMetricsEntity> memoryMetricsEntities = new HashSet<>();
 
-    @OneToMany(mappedBy = "system", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "system",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
+            orphanRemoval = true)
     private Set<DiskMetricsEntity> diskMetricsEntities = new HashSet<>();
 
-    @OneToMany(mappedBy = "system", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "system",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
+            orphanRemoval = true)
     private Set<NetworkMetricsEntity> networkMetricsEntities = new HashSet<>();
 }
