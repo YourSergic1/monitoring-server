@@ -4,6 +4,7 @@ import github.titandea.dto.create.Organization;
 import github.titandea.dto.response.OrganizationResponse;
 import github.titandea.dto.response.OrganizationSummaryResponse;
 import github.titandea.entity.OrganizationEntity;
+import github.titandea.enums.AgentState;
 import github.titandea.mapper.CreateDtoToEntityMapper;
 import github.titandea.mapper.EntityToResponseDtoMapper;
 import github.titandea.repository.OrganizationRepository;
@@ -45,6 +46,7 @@ public class OrganizationService {
      */
     public ResponseEntity<UUID> createOrganization(Organization organization) {
         OrganizationEntity organizationEntity = createDtoToEntityMapper.toOrganizationEntity(organization);
+        organizationEntity.setState(AgentState.OK);
         organizationRepository.save(organizationEntity);
         return ResponseEntity.ok(organizationEntity.getId());
     }

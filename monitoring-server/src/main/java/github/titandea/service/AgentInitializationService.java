@@ -3,6 +3,7 @@ package github.titandea.service;
 import github.titandea.dto.create.Agent;
 import github.titandea.entity.AgentEntity;
 import github.titandea.entity.OrganizationEntity;
+import github.titandea.enums.AgentState;
 import github.titandea.repository.AgentRepository;
 import github.titandea.repository.OrganizationRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,7 @@ public class AgentInitializationService {
                 if (agent.getStartTime() != null) agentEntity.setStartTime(agent.getStartTime());
                 if (agent.getEndTime() != null) agentEntity.setEndTime(agent.getEndTime());
             }
+            agentEntity.setState(AgentState.OK);
             agentRepository.save(agentEntity);
         } else {
             throw new RuntimeException("UUID организации не найден.");
