@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -47,20 +47,20 @@ public class SystemMetricsEntity {
     @OneToMany(mappedBy = "system",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
             orphanRemoval = true)
-    private Set<CpuMetricsEntity> cpuMetricsEntities = new HashSet<>();
+    private List<CpuMetricsEntity> cpuMetricsEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "system",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
             orphanRemoval = true)
-    private Set<MemoryMetricsEntity> memoryMetricsEntities = new HashSet<>();
+    private List<MemoryMetricsEntity> memoryMetricsEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "system",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
             orphanRemoval = true)
-    private Set<DiskMetricsEntity> diskMetricsEntities = new HashSet<>();
+    private List<DiskMetricsEntity> diskMetricsEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "system",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
             orphanRemoval = true)
-    private Set<NetworkMetricsEntity> networkMetricsEntities = new HashSet<>();
+    private List<NetworkMetricsEntity> networkMetricsEntities = new ArrayList<>();
 }

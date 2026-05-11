@@ -13,13 +13,18 @@ import org.mapstruct.NullValueCheckStrategy;
 public interface EntityToResponseDtoMapper {
     // === Существующие мапперы ===
     OrganizationResponse toOrganizationResponse(OrganizationEntity entity);
+
     OrganizationSummaryResponse toOrganizationSummaryResponse(OrganizationEntity entity);
+
     AgentSummaryResponse toAgentSummaryResponse(AgentEntity entity);
 
     // === Мапперы для метрик (элементы) ===
     CpuMetricsResponse toCpuMetricsResponse(CpuMetricsEntity entity);
+
     MemoryMetricsResponse toMemoryMetricsResponse(MemoryMetricsEntity entity);
+
     DiskMetricsResponse toDiskMetricsResponse(DiskMetricsEntity entity);
+
     NetworkMetricsResponse toNetworkMetricsResponse(NetworkMetricsEntity entity);
 
     // === Основной маппер системных метрик ===

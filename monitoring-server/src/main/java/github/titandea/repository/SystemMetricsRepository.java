@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -17,9 +16,6 @@ public interface SystemMetricsRepository extends JpaRepository<SystemMetricsEnti
 
     @Query("SELECT DISTINCT s FROM SystemMetricsEntity s " +
             "LEFT JOIN FETCH s.cpuMetricsEntities " +
-            "LEFT JOIN FETCH s.memoryMetricsEntities " +
-            "LEFT JOIN FETCH s.diskMetricsEntities " +
-            "LEFT JOIN FETCH s.networkMetricsEntities " +
             "WHERE s.agent.id = :agentId " +
             "AND s.dateTime >= :startTime " +
             "AND s.dateTime <= :endTime " +

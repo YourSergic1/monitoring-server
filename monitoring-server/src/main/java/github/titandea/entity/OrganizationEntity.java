@@ -4,8 +4,8 @@ import github.titandea.enums.AgentState;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -36,7 +36,7 @@ public class OrganizationEntity {
     private String contactPerson;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<AgentEntity> agents = new HashSet<>();
+    private List<AgentEntity> agents = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "state", length = 20)
