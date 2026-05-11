@@ -30,6 +30,6 @@ public class CalendarEntity {
     private boolean workingDay;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
-    private EmployeeEntity employee;
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 }
