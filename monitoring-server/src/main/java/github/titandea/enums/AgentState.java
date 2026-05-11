@@ -1,6 +1,5 @@
 package github.titandea.enums;
 
-
 /**
  * Состояние агента.
  */

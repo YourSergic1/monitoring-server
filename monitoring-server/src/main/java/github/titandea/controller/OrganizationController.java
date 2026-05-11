@@ -1,8 +1,10 @@
 package github.titandea.controller;
 
 import github.titandea.dto.create.Organization;
+import github.titandea.dto.response.AgentSummaryResponse;
 import github.titandea.dto.response.OrganizationResponse;
 import github.titandea.dto.response.OrganizationSummaryResponse;
+import github.titandea.service.AgentService;
 import github.titandea.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import java.util.UUID;
 @RequestMapping("/api/v1/organizations")
 public class OrganizationController {
     private final OrganizationService organizationService;
+
+    private final AgentService agentService;
 
     /**
      * Получение списка организаций кратко.
@@ -58,5 +62,13 @@ public class OrganizationController {
     @PostMapping
     public ResponseEntity<UUID> createOrganization(@RequestBody Organization organization) {
         return organizationService.createOrganization(organization);
+    }
+
+    /**
+     * Получение списка агентов по организации.
+     */
+    @GetMapping("{organizationId}/agents")
+    public List<AgentSummaryResponse> getAllAgentsSummaryByOrganization(@PathVariable(required = true) UUID organizationId) {
+        return agentService.getAllAgentsSummaryByOrganization(organizationId);
     }
 }

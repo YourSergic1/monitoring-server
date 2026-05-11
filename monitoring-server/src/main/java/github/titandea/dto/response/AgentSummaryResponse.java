@@ -3,6 +3,7 @@ package github.titandea.dto.response;
 import github.titandea.enums.AgentState;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -20,4 +21,6 @@ public class AgentSummaryResponse {
     private String localIp;
 
     private AgentState state;
+
+    private LocalDateTime lastMetricReceived;
 }
