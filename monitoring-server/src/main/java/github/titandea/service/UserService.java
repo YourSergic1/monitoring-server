@@ -83,6 +83,13 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public List<UserSummaryResponse> getAllUsersSummaryWithRoleManager() {
+        return userRepository.findAllByRole(UserRole.ENGINEER).stream()
+                .map(userEntity ->
+                        entityToResponseDtoMapper.toUserSummaryResponse(userEntity))
+                .collect(Collectors.toList());
+    }
+
     public UserResponse getUserById(UUID id) {
         UserResponse userResponse = entityToResponseDtoMapper.toUserResponse(userRepository.findById(id).orElse(null));
         if (userResponse != null) {

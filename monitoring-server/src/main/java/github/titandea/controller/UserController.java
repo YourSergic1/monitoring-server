@@ -33,6 +33,14 @@ public class UserController {
     }
 
     /**
+     * Получение списка пользователей кратко.
+     */
+    @GetMapping("manager")
+    public List<UserSummaryResponse> getAllUsersWithRoleManager() {
+        return userService.getAllUsersSummaryWithRoleManager();
+    }
+
+    /**
      * Получение пользователя по UUID.
      */
     @GetMapping("/{id}")

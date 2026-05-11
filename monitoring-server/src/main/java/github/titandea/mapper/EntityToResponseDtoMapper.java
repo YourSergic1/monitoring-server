@@ -3,6 +3,7 @@ package github.titandea.mapper;
 import github.titandea.dto.response.*;
 import github.titandea.entity.*;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 
 /**
@@ -27,7 +28,20 @@ public interface EntityToResponseDtoMapper {
 
     SystemMetricsResponse toSystemMetricsResponse(SystemMetricsEntity entity);
 
+    @Mapping(target = "fullName", source = "user")
+    @Mapping(target = "employeeId", source = "user.id")
     CalendarResponse toCalendarResponse(CalendarEntity entity);
+
+    default String userToFullName(UserEntity user) {
+        if (user == null) return null;
+
+        StringBuilder sb = new StringBuilder();
+        if (user.getSurname() != null) sb.append(user.getSurname()).append(" ");
+        if (user.getName() != null) sb.append(user.getName()).append(" ");
+        if (user.getPatronymic() != null) sb.append(user.getPatronymic());
+
+        return sb.toString().trim();
+    }
 
     UserSummaryResponse toUserSummaryResponse(UserEntity entity);
 

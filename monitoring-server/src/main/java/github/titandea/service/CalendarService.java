@@ -3,8 +3,10 @@ package github.titandea.service;
 
 import github.titandea.dto.response.CalendarResponse;
 import github.titandea.entity.CalendarEntity;
+import github.titandea.entity.UserEntity;
 import github.titandea.mapper.EntityToResponseDtoMapper;
 import github.titandea.repository.CalendarRepository;
+import github.titandea.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,6 +18,7 @@ import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -24,6 +27,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CalendarService {
 
     private final CalendarRepository calendarRepository;
+
+    private final UserRepository userRepository;
 
     private final EntityToResponseDtoMapper mapper;
 
@@ -76,8 +81,20 @@ public class CalendarService {
     public List<CalendarResponse> getCalendarByMonthAndYear(int year, int month) {
         LocalDate startDate = LocalDate.of(year, month, 1);
         LocalDate endDate = startDate.with(java.time.temporal.TemporalAdjusters.lastDayOfMonth());
-        return calendarRepository.getAllByDateBetween(startDate, endDate).stream().map(
+        return calendarRepository.findAllByDateBetweenOrderByDateAsc(startDate, endDate).stream().map(
                 calendarEntity -> mapper.toCalendarResponse(calendarEntity)
         ).toList();
+    }
+
+    public void addManager(UUID dayId, UUID employeeId) {
+        CalendarEntity calendarEntity = calendarRepository.findById(dayId).orElse(null);
+        if (calendarEntity == null) return;
+        if (employeeId == null) {
+            calendarEntity.setUser(null);
+        } else {
+            UserEntity userEntity = userRepository.findById(employeeId).orElse(null);
+            calendarEntity.setUser(userEntity);
+        }
+        calendarRepository.save(calendarEntity);
     }
 }

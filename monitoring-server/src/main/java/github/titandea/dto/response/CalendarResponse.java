@@ -18,4 +18,6 @@ public class CalendarResponse {
     private LocalDate date;
     private String dayOfWeek;
     private boolean workingDay;
+    private String fullName;
+    private UUID employeeId;
 }

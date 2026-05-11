@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,5 +32,14 @@ public class CalendarController {
             @RequestParam int month
     ) {
         return calendarService.getCalendarByMonthAndYear(year, month);
+    }
+
+    /**
+     * Назначение и снятие дежурного.
+     */
+    @PatchMapping("/days/{dayId}")
+    public void addManager(@PathVariable UUID dayId,
+                           @RequestParam(required = false) UUID employeeId) {
+        calendarService.addManager(dayId, employeeId);
     }
 }
