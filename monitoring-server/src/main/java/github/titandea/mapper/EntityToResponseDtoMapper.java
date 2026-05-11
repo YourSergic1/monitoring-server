@@ -1,6 +1,6 @@
 package github.titandea.mapper;
 
-import github.titandea.dto.response.AgentResponse;
+import github.titandea.dto.response.AgentSummaryResponse;
 import github.titandea.dto.response.OrganizationResponse;
 import github.titandea.dto.response.OrganizationSummaryResponse;
 import github.titandea.entity.AgentEntity;
@@ -26,7 +26,7 @@ public interface EntityToResponseDtoMapper {
     OrganizationSummaryResponse toOrganizationSummaryResponse(OrganizationEntity entity);
 
     /**
-     * Преобразует AgentEntity → AgentResponse
+     * Преобразует AgentEntity → AgentSummaryResponse
      */
-    AgentResponse toAgentResponse(AgentEntity entity);
+    AgentSummaryResponse toAgentSummaryResponse(AgentEntity entity);
 }

@@ -14,10 +14,10 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrganizationSummaryResponse {
+public class AgentSummaryResponse {
     private UUID id;
 
-    private String name;
+    private String localIp;
 
     private AgentState state;
 }

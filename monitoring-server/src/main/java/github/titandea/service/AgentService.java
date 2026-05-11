@@ -1,6 +1,6 @@
 package github.titandea.service;
 
-import github.titandea.dto.response.AgentResponse;
+import github.titandea.dto.response.AgentSummaryResponse;
 import github.titandea.mapper.EntityToResponseDtoMapper;
 import github.titandea.repository.AgentRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +22,12 @@ public class AgentService {
     private final EntityToResponseDtoMapper entityToResponseDtoMapper;
 
     /**
-     * Возвращает список агентов, принадлежащих указанной организации.
+     * Получение списка агентов.
      */
-    public List<AgentResponse> getAgentsByOrganization(UUID organizationUUID) {
-        return agentRepository.findByOrganizationId(organizationUUID).stream()
-                .map(agentEntity -> entityToResponseDtoMapper.toAgentResponse(agentEntity))
+    public List<AgentSummaryResponse> getAllAgentsSummaryByOrganization(UUID organizationId) {
+        return agentRepository.findByOrganizationId(organizationId).stream()
+                .map(agentEntity ->
+                        entityToResponseDtoMapper.toAgentSummaryResponse(agentEntity))
                 .collect(Collectors.toList());
     }
 }

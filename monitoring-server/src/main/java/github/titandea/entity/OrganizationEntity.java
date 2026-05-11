@@ -1,5 +1,6 @@
 package github.titandea.entity;
 
+import github.titandea.enums.AgentState;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,4 +37,8 @@ public class OrganizationEntity {
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<AgentEntity> agents = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state", length = 20)
+    private AgentState state;
 }

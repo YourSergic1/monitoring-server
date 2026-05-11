@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -40,7 +39,7 @@ public class MetricsIngestionService {
             return;
         }
         SystemMetricsEntity entity = createDtoToEntityMapper.toSystemMetricsEntity(dto, agentEntity.get());
-        agentEntity.get().setLastMetricReceived(LocalDateTime.now());
+        agentEntity.get().setLastMetricReceived(entity.getDateTime());
         agentRepository.save(agentEntity.get());
         systemMetricsRepository.save(entity);
     }
