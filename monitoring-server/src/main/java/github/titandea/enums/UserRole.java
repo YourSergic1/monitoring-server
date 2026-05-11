@@ -19,6 +19,10 @@ public enum UserRole {
         this.displayName = displayName;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
     public static List<RoleResponse> getAllRoles() {
         return Arrays.stream(UserRole.values()).map(
                 UserRole -> new RoleResponse(UserRole.name(), UserRole.displayName)).toList();

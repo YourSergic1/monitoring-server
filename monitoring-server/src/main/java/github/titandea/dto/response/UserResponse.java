@@ -1,17 +1,12 @@
 package github.titandea.dto.response;
 
-import github.titandea.enums.UserRole;
-import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
  * DTO для получения конкретного пользователя.
- * Используется в контроллере.
  */
 @Getter
 @Setter
@@ -32,7 +27,7 @@ public class UserResponse {
 
     private String phone;
 
-    private UserRole role;
+    private String role;
 
     private LocalDateTime createdAt;
 }

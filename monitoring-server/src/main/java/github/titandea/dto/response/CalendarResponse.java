@@ -7,7 +7,6 @@ import java.util.UUID;
 
 /**
  * DTO для получения календаря.
- * Используется в контроллере.
  */
 @Getter
 @Setter

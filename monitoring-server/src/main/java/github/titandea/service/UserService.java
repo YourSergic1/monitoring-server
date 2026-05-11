@@ -4,6 +4,7 @@ import github.titandea.dto.create.User;
 import github.titandea.dto.response.UserResponse;
 import github.titandea.dto.response.UserSummaryResponse;
 import github.titandea.entity.UserEntity;
+import github.titandea.enums.UserRole;
 import github.titandea.mapper.EntityToResponseDtoMapper;
 import github.titandea.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -83,7 +84,11 @@ public class UserService {
     }
 
     public UserResponse getUserById(UUID id) {
-        return entityToResponseDtoMapper.toUserResponse(userRepository.findById(id).orElse(null));
+        UserResponse userResponse = entityToResponseDtoMapper.toUserResponse(userRepository.findById(id).orElse(null));
+        if (userResponse != null) {
+            userResponse.setRole(UserRole.valueOf(userResponse.getRole()).getDisplayName());
+        }
+        return userResponse;
     }
 
     @Transactional
