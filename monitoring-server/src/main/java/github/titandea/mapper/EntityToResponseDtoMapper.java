@@ -30,4 +30,6 @@ public interface EntityToResponseDtoMapper {
     // === Основной маппер системных метрик ===
     // MapStruct автоматически использует методы выше для преобразования Set<Entity> -> Set<DTO>
     SystemMetricsResponse toSystemMetricsResponse(SystemMetricsEntity entity);
+
+    CalendarResponse toCalendarResponse(CalendarEntity entity);
 }

@@ -33,7 +33,7 @@ public class MetricsService {
     }
 
     public List<SystemMetricsResponse> getMetricsForAgent(UUID agentId, LocalDateTime startTime, LocalDateTime endTime) {
-        if (startTime==null || endTime==null) {
+        if (startTime == null || endTime == null) {
             return Collections.emptyList();
         }
         List<SystemMetricsEntity> entities = repository.findByAgentIdAndDateTimeRange(agentId, startTime, endTime);
