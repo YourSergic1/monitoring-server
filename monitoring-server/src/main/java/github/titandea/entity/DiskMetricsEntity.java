@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.UUID;
 
 /**
- * Сущность метрик дискового пространства для БД.
+ * Сущность метрик дискового пространства.
  */
 @Entity
 @Getter

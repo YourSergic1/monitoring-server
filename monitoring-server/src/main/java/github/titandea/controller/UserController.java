@@ -1,8 +1,6 @@
 package github.titandea.controller;
 
-import github.titandea.dto.create.Organization;
 import github.titandea.dto.create.User;
-import github.titandea.dto.response.OrganizationResponse;
 import github.titandea.dto.response.RoleResponse;
 import github.titandea.dto.response.UserResponse;
 import github.titandea.dto.response.UserSummaryResponse;
@@ -17,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Контроллер для работы с юзерами.
+ * Контроллер для работы с пользователями.
  */
 @RequiredArgsConstructor
 @RestController
@@ -27,7 +25,7 @@ public class UserController {
     private final UserService userService;
 
     /**
-     * Получение списка организаций кратко.
+     * Получение списка пользователей кратко.
      */
     @GetMapping
     public List<UserSummaryResponse> getAllUsers() {
@@ -44,7 +42,7 @@ public class UserController {
 
 
     /**
-     * Создание нового юзера.
+     * Создание нового пользователя.
      */
     @PostMapping
     public ResponseEntity<UUID> createUser(@RequestBody User user) {
@@ -52,7 +50,7 @@ public class UserController {
     }
 
     /**
-     * Удаление юзера по UUID.
+     * Удаление пользователя по UUID.
      */
     @DeleteMapping("/{id}")
     public void deleteUserById(@PathVariable UUID id) {
@@ -60,7 +58,7 @@ public class UserController {
     }
 
     /**
-     * Редактирование юзера по UUID.
+     * Редактирование пользователя по UUID.
      */
     @PatchMapping("/{id}")
     public void changeUserById(@PathVariable UUID id, @RequestBody User user) {
@@ -68,7 +66,7 @@ public class UserController {
     }
 
     /**
-     * Получение доступных ролей.
+     * Получение доступных ролей для установки пользователю.
      */
     @GetMapping("/roles")
     public List<RoleResponse> getRoles() {

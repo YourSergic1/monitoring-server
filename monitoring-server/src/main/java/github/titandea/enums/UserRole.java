@@ -5,6 +5,9 @@ import github.titandea.dto.response.RoleResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Роли пользователя.
+ */
 public enum UserRole {
     ENGINEER("Инженер по обслуживанию"),
     MANAGER("Менеджер по работе с клиентами"),
@@ -14,13 +17,6 @@ public enum UserRole {
 
     UserRole(String displayName) {
         this.displayName = displayName;
-    }
-
-    /**
-     * Возвращает человеко-читаемое название
-     */
-    public String getDisplayName() {
-        return displayName;
     }
 
     public static List<RoleResponse> getAllRoles() {

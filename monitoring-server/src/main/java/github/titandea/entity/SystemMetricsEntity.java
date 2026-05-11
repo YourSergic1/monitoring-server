@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Сущность системных метрик для БД.
+ * Сущность системных метрик.
  */
 @Entity
 @Getter

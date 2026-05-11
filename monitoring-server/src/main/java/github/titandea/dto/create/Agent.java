@@ -9,7 +9,6 @@ import java.time.LocalTime;
 
 /**
  * DTO для получения данных агента.
- * Используется в Kafka-сообщениях.
  */
 @Data
 @Builder

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * DTO для получения данных по оперативной памяти.
- * Используется в Kafka-сообщениях.
  */
 @Data
 @Builder

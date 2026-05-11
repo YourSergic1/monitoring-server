@@ -21,9 +21,6 @@ public class AgentService {
 
     private final EntityToResponseDtoMapper entityToResponseDtoMapper;
 
-    /**
-     * Получение списка агентов.
-     */
     public List<AgentSummaryResponse> getAllAgentsSummaryByOrganization(UUID organizationId) {
         return agentRepository.findByOrganizationId(organizationId).stream()
                 .map(agentEntity ->

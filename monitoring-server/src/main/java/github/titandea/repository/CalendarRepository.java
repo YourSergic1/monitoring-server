@@ -8,6 +8,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Репозиторий календаря.
+ */
 @Repository
 public interface CalendarRepository extends JpaRepository<CalendarEntity, UUID> {
     boolean existsByDate(LocalDate date);

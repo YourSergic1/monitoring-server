@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * DTO для получения данных метрик ЦПУ.
- * Используется в Kafka-сообщениях.
  */
 @Data
 @Builder

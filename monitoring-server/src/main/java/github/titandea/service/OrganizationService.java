@@ -31,9 +31,7 @@ public class OrganizationService {
 
     private final EntityToResponseDtoMapper entityToResponseDtoMapper;
 
-    /**
-     * Получение списка организаций.
-     */
+
     public List<OrganizationSummaryResponse> getAllOrganizationsSummary() {
         return organizationRepository.findAll().stream()
                 .map(organizationEntity ->
@@ -41,9 +39,6 @@ public class OrganizationService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Создание новой организации.
-     */
     public ResponseEntity<UUID> createOrganization(Organization organization) {
         OrganizationEntity organizationEntity = createDtoToEntityMapper.toOrganizationEntity(organization);
         organizationEntity.setState(AgentState.OK);
@@ -51,25 +46,17 @@ public class OrganizationService {
         return ResponseEntity.ok(organizationEntity.getId());
     }
 
-    /**
-     * Поиск организации по UUID.
-     */
+
     public OrganizationResponse getOrganizationById(UUID uuid) {
         return entityToResponseDtoMapper.toOrganizationResponse(
                 organizationRepository.findById(uuid).orElse(null));
     }
 
-    /**
-     * Удаление организации по UUID.
-     */
     @Transactional
     public void deleteOrganizationById(UUID uuid) {
         organizationRepository.deleteById(uuid);
     }
 
-    /**
-     * Изменение организации по UUID.
-     */
     @Transactional
     public void changeOrganizationById(UUID uuid, Organization organization) {
         OrganizationEntity organizationEntity = organizationRepository.findById(uuid).orElse(null);

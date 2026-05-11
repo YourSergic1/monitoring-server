@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
- * Сущность юзера для БД.
+ * Сущность пользователя.
  */
 @Getter
 @Setter

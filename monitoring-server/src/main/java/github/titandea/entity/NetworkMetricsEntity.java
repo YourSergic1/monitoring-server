@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.UUID;
 
 /**
- * Сущность метрик соединений для БД.
+ * Сущность метрик соединений.
  */
 @Entity
 @Getter

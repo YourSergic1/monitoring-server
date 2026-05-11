@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * DTO для получения данных об организации.
- * Используется в контроллере.
  */
 @Data
 @Builder

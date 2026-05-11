@@ -1,10 +1,8 @@
 package github.titandea.service;
 
-import github.titandea.dto.create.Organization;
 import github.titandea.dto.create.User;
 import github.titandea.dto.response.UserResponse;
 import github.titandea.dto.response.UserSummaryResponse;
-import github.titandea.entity.OrganizationEntity;
 import github.titandea.entity.UserEntity;
 import github.titandea.mapper.EntityToResponseDtoMapper;
 import github.titandea.repository.UserRepository;
@@ -77,9 +75,6 @@ public class UserService {
         return password.toString();
     }
 
-    /**
-     * Получение списка пользователей.
-     */
     public List<UserSummaryResponse> getAllUsersSummary() {
         return userRepository.findAll().stream()
                 .map(userEntity ->
@@ -87,24 +82,15 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Получение пользователя по id.
-     */
     public UserResponse getUserById(UUID id) {
         return entityToResponseDtoMapper.toUserResponse(userRepository.findById(id).orElse(null));
     }
 
-    /**
-     * Удаление пользователя по id.
-     */
     @Transactional
     public void deleteUserById(UUID uuid) {
         userRepository.deleteById(uuid);
     }
 
-    /**
-     * Изменение юзера по UUID.
-     */
     @Transactional
     public void changeUserById(UUID uuid, User user) {
         UserEntity userEntity = userRepository.findById(uuid).orElse(null);
@@ -120,7 +106,7 @@ public class UserService {
         if (StringUtils.isNoneEmpty(user.getPhone())) {
             userEntity.setPhone(user.getPhone());
         }
-        if (user.getRole()!=null) {
+        if (user.getRole() != null) {
             userEntity.setRole(user.getRole());
         }
         userRepository.save(userEntity);

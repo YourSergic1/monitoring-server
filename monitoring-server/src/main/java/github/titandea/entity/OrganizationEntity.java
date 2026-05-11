@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Сущность организации для БД.
+ * Сущность организации
  */
 @Entity
 @Getter

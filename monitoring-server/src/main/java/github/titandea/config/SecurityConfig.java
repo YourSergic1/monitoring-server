@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     /**
-     * ⚠️ ВРЕМЕННО ОТКЛЮЧАЕТ АУТЕНТИФИКАЦИЮ И CSRF ДЛЯ РАЗРАБОТКИ.
+     * ВРЕМЕННО ОТКЛЮЧАЕТ АУТЕНТИФИКАЦИЮ И CSRF ДЛЯ РАЗРАБОТКИ.
      * Когда будешь готов включить безопасность:
      * 1. Закомментируй этот @Bean
      * 2. Настрой реальные правила доступа и JWT/Session
@@ -20,9 +20,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // Отключаем CSRF (нужен для POST/PUT/DELETE с фронта)
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // ✅ Разрешаем ВСЕ запросы без логина/пароля
+                        .anyRequest().permitAll()
                 );
         return http.build();
     }

@@ -13,6 +13,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Сервис для работы с метриками.
+ */
 @Service
 @RequiredArgsConstructor
 public class MetricsService {

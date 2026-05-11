@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.UUID;
 
 /**
- * Сущность метрик об оперативной памяти для БД.
+ * Сущность метрик об оперативной памяти.
  */
 @Entity
 @Getter

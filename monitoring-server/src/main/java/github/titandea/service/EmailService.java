@@ -23,15 +23,15 @@ public class EmailService {
         message.setTo(toEmail);
         message.setSubject("Ваши учетные данные для Сервиса мониторинга");
         message.setText(String.format("""
-            Здравствуйте, %s!
-            
-            Ваша учетная запись создана.
-            Логин: %s
-            Пароль: %s
-            
-            С уважением,
-            Команда мониторинга
-            """, fullName, toEmail, password));
+                Здравствуйте, %s!
+                
+                Ваша учетная запись создана.
+                Логин: %s
+                Пароль: %s
+                
+                С уважением,
+                Команда мониторинга
+                """, fullName, toEmail, password));
 
         mailSender.send(message);
     }

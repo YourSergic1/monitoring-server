@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.UUID;
 
 /**
- * Сущность метрик ЦПУ для БД.
+ * Сущность метрик ЦПУ.
  */
 @Entity
 @Getter

@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * DTO для получения данных метрик о системе.
- * Используется в Kafka-сообщениях.
  */
 @Data
 @Builder

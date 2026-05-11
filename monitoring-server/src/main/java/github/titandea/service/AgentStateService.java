@@ -16,6 +16,9 @@ import java.util.List;
 
 import static github.titandea.enums.AgentState.*;
 
+/**
+ * Сервис для выставления состояния в зависимости от состояния агента.
+ */
 @Service
 @RequiredArgsConstructor
 public class AgentStateService {
@@ -60,10 +63,6 @@ public class AgentStateService {
         }
     }
 
-    /**
-     * Возвращает наихудшее состояние согласно ТЗ:
-     * CRITICAL > WARNING > OK
-     */
     private AgentState getWorstState(AgentState currentOrgState, AgentState newAgentState) {
         if (newAgentState == CRITICAL || currentOrgState == CRITICAL) {
             return CRITICAL;
