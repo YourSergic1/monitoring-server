@@ -1,7 +1,6 @@
 package github.titandea.controller;
 
 import github.titandea.dto.response.SystemMetricsResponse;
-import github.titandea.service.AgentService;
 import github.titandea.service.MetricsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

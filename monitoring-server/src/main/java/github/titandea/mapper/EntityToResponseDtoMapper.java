@@ -1,10 +1,7 @@
 package github.titandea.mapper;
 
-import github.titandea.dto.response.AgentSummaryResponse;
-import github.titandea.dto.response.OrganizationResponse;
-import github.titandea.dto.response.OrganizationSummaryResponse;
-import github.titandea.entity.AgentEntity;
-import github.titandea.entity.OrganizationEntity;
+import github.titandea.dto.response.*;
+import github.titandea.entity.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
 
@@ -14,19 +11,18 @@ import org.mapstruct.NullValueCheckStrategy;
 @Mapper(componentModel = "spring",
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface EntityToResponseDtoMapper {
-
-    /**
-     * Преобразует OrganizationEntity → OrganizationResponse
-     */
+    // === Существующие мапперы ===
     OrganizationResponse toOrganizationResponse(OrganizationEntity entity);
-
-    /**
-     * Преобразует OrganizationEntity → OrganizationSummaryResponse
-     */
     OrganizationSummaryResponse toOrganizationSummaryResponse(OrganizationEntity entity);
-
-    /**
-     * Преобразует AgentEntity → AgentSummaryResponse
-     */
     AgentSummaryResponse toAgentSummaryResponse(AgentEntity entity);
+
+    // === Мапперы для метрик (элементы) ===
+    CpuMetricsResponse toCpuMetricsResponse(CpuMetricsEntity entity);
+    MemoryMetricsResponse toMemoryMetricsResponse(MemoryMetricsEntity entity);
+    DiskMetricsResponse toDiskMetricsResponse(DiskMetricsEntity entity);
+    NetworkMetricsResponse toNetworkMetricsResponse(NetworkMetricsEntity entity);
+
+    // === Основной маппер системных метрик ===
+    // MapStruct автоматически использует методы выше для преобразования Set<Entity> -> Set<DTO>
+    SystemMetricsResponse toSystemMetricsResponse(SystemMetricsEntity entity);
 }
