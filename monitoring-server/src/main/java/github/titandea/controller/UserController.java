@@ -1,8 +1,10 @@
 package github.titandea.controller;
 
+import github.titandea.dto.create.Organization;
 import github.titandea.dto.create.User;
 import github.titandea.dto.response.OrganizationResponse;
 import github.titandea.dto.response.RoleResponse;
+import github.titandea.dto.response.UserResponse;
 import github.titandea.dto.response.UserSummaryResponse;
 import github.titandea.enums.UserRole;
 import github.titandea.service.UserService;
@@ -32,7 +34,13 @@ public class UserController {
         return userService.getAllUsersSummary();
     }
 
-
+    /**
+     * Получение пользователя по UUID.
+     */
+    @GetMapping("/{id}")
+    public UserResponse getUserById(@PathVariable UUID id) {
+        return userService.getUserById(id);
+    }
 
 
     /**
@@ -41,6 +49,22 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UUID> createUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
+    }
+
+    /**
+     * Удаление юзера по UUID.
+     */
+    @DeleteMapping("/{id}")
+    public void deleteUserById(@PathVariable UUID id) {
+        userService.deleteUserById(id);
+    }
+
+    /**
+     * Редактирование юзера по UUID.
+     */
+    @PatchMapping("/{id}")
+    public void changeUserById(@PathVariable UUID id, @RequestBody User user) {
+        userService.changeUserById(id, user);
     }
 
     /**

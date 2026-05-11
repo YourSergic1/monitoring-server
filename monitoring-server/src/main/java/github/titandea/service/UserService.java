@@ -1,13 +1,16 @@
 package github.titandea.service;
 
+import github.titandea.dto.create.Organization;
 import github.titandea.dto.create.User;
-import github.titandea.dto.response.OrganizationSummaryResponse;
+import github.titandea.dto.response.UserResponse;
 import github.titandea.dto.response.UserSummaryResponse;
+import github.titandea.entity.OrganizationEntity;
 import github.titandea.entity.UserEntity;
 import github.titandea.mapper.EntityToResponseDtoMapper;
 import github.titandea.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,12 +78,51 @@ public class UserService {
     }
 
     /**
-     * Получение списка организаций.
+     * Получение списка пользователей.
      */
     public List<UserSummaryResponse> getAllUsersSummary() {
         return userRepository.findAll().stream()
                 .map(userEntity ->
                         entityToResponseDtoMapper.toUserSummaryResponse(userEntity))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Получение пользователя по id.
+     */
+    public UserResponse getUserById(UUID id) {
+        return entityToResponseDtoMapper.toUserResponse(userRepository.findById(id).orElse(null));
+    }
+
+    /**
+     * Удаление пользователя по id.
+     */
+    @Transactional
+    public void deleteUserById(UUID uuid) {
+        userRepository.deleteById(uuid);
+    }
+
+    /**
+     * Изменение юзера по UUID.
+     */
+    @Transactional
+    public void changeUserById(UUID uuid, User user) {
+        UserEntity userEntity = userRepository.findById(uuid).orElse(null);
+        if (StringUtils.isNoneEmpty(user.getName())) {
+            userEntity.setName(user.getName());
+        }
+        if (StringUtils.isNoneEmpty(user.getSurname())) {
+            userEntity.setSurname(user.getSurname());
+        }
+        if (StringUtils.isNoneEmpty(user.getPatronymic())) {
+            userEntity.setPatronymic(user.getPatronymic());
+        }
+        if (StringUtils.isNoneEmpty(user.getPhone())) {
+            userEntity.setPhone(user.getPhone());
+        }
+        if (user.getRole()!=null) {
+            userEntity.setRole(user.getRole());
+        }
+        userRepository.save(userEntity);
     }
 }
