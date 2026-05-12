@@ -1,5 +1,7 @@
 package github.titandea.service;
 
+import github.titandea.dto.warning.AgentWarning;
+import github.titandea.dto.warning.OrganizationWarning;
 import github.titandea.entity.AgentEntity;
 import github.titandea.entity.OrganizationEntity;
 import github.titandea.enums.AgentState;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static github.titandea.enums.AgentState.*;
@@ -25,9 +28,12 @@ public class AgentStateService {
 
     private final OrganizationRepository organizationRepository;
 
+    private final EmailService emailService;
+
     @Transactional
     @Scheduled(fixedRate = 300_000)
     public void changeAgentState() {
+        List<OrganizationWarning> warnings = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
         LocalTime currentTime = now.toLocalTime();
         List<OrganizationEntity> organizations = organizationRepository.findAll();
@@ -35,7 +41,7 @@ public class AgentStateService {
         for (OrganizationEntity organization : organizations) {
             AgentState worstOrgState = OK;
             List<AgentEntity> agents = organization.getAgents();
-
+            OrganizationWarning organizationWarning = new OrganizationWarning();
             for (AgentEntity agent : agents) {
                 AgentState agentState;
 
@@ -55,11 +61,35 @@ public class AgentStateService {
                         agentState = OK;
                     }
                 }
-
                 agent.setState(agentState);
                 worstOrgState = getWorstState(worstOrgState, agentState);
+                createAgentWarning(organizationWarning, agent);
             }
             organization.setState(worstOrgState);
+            initOrganizationWarning(warnings, organizationWarning, organization);
+        }
+        emailService.sendWarnings(warnings);
+    }
+
+    private void createAgentWarning(OrganizationWarning organizationWarning,
+                                    AgentEntity agentEntity) {
+        if (agentEntity.getState().equals(CRITICAL) || agentEntity.getState().equals(WARNING)) {
+            AgentWarning agentWarning = new AgentWarning();
+            agentWarning.setId(agentEntity.getId());
+            agentWarning.setLocalIp(agentEntity.getLocalIp());
+            agentWarning.setLastMetricReceived(agentEntity.getLastMetricReceived());
+            agentWarning.setState(agentEntity.getState());
+            organizationWarning.getAgentWarningList().add(agentWarning);
+        }
+    }
+
+    private void initOrganizationWarning(List<OrganizationWarning> organizationWarningList,
+                                         OrganizationWarning organizationWarning,
+                                         OrganizationEntity organizationEntity) {
+        if (organizationEntity.getState().equals(CRITICAL) || organizationEntity.getState().equals(WARNING)) {
+            organizationWarning.setName(organizationEntity.getName());
+            organizationWarning.setId(organizationEntity.getId());
+            organizationWarningList.add(organizationWarning);
         }
     }
 

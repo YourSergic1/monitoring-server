@@ -16,4 +16,6 @@ public interface CalendarRepository extends JpaRepository<CalendarEntity, UUID> 
     boolean existsByDate(LocalDate date);
 
     List<CalendarEntity> findAllByDateBetweenOrderByDateAsc(LocalDate start, LocalDate end);
+
+    CalendarEntity findByDate(LocalDate date);
 }

@@ -97,4 +97,8 @@ public class CalendarService {
         }
         calendarRepository.save(calendarEntity);
     }
+
+    public CalendarEntity getCalendarEntityByDay(LocalDate date) {
+        return calendarRepository.findByDate(date);
+    }
 }
